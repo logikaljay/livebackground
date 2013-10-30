@@ -1,0 +1,1 @@
+﻿# LiveBackground - Changing your desktop dynamically with info from XML.
