@@ -3,8 +3,10 @@
     using LiveBackground.Infrastructure;
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Management;
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
@@ -24,6 +26,13 @@
     public partial class MainWindow : Window
     {
         /// <summary>
+        /// The items
+        /// </summary>
+        List<DisplayItem> items = new List<DisplayItem>();
+
+        string tempPath = string.Empty;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
@@ -36,14 +45,21 @@
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Load_Click(object sender, RoutedEventArgs e)
         {
-            Store store = new Store(@"C:\temp\livebackground\", typeof(List<DisplayItem>));
-            List<DisplayItem> items = store.Get(typeof(List<DisplayItem>)) as List<DisplayItem>;
+            tempPath = App.Load();
 
-            Wallpaper.Set(new Uri(@"C:\temp\livebackground\background.jpg", UriKind.Absolute), Wallpaper.Style.Stretched, items);
+            BitmapImage preview = new BitmapImage();
+            preview.BeginInit();
+            preview.UriSource = new Uri(System.IO.Path.Combine(System.IO.Path.GetTempPath(), "wallpaper.bmp"), UriKind.Absolute);
+            preview.EndInit();
+            Preview.Stretch = Stretch.Uniform;
+            Preview.Source = preview;
+        }
 
-            Environment.Exit(0);
+        private void Apply_Click(object sender, RoutedEventArgs e)
+        {
+            Wallpaper.Set(new Uri(System.IO.Path.Combine(System.IO.Path.GetTempPath(), "wallpaper.bmp"), UriKind.Absolute), Wallpaper.Style.Stretched, items);
         }
     }
 }

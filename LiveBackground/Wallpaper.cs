@@ -56,26 +56,7 @@
 
             System.Drawing.Image img = System.Drawing.Image.FromStream(s);
             string tempPath = Path.Combine(Path.GetTempPath(), "wallpaper.bmp");
-            Graphics g = Graphics.FromImage(img);
-
-            float paddingTop = 20;
-            float left = 70;
-            float top = 70;
-            foreach (var item in items)
-            {
-                RectangleF rectf = new RectangleF(left, top, 1024, 768);
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                g.DrawString(item.ToString(), new Font("Tahoma", 15), Brushes.White, rectf);
-                top = top + 30 + paddingTop;
-            }
-
-            g.Flush();
-
-            // save our new image
-            img.Save(tempPath, System.Drawing.Imaging.ImageFormat.Bmp);
-
+            
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
             if (style == Style.Stretched)
             {

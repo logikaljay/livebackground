@@ -22,8 +22,18 @@
         WebRequest = 2,
 
         /// <summary>
-        /// The image
+        /// The disk
         /// </summary>
-        Image = 3
+        Disk = 3,
+
+        /// <summary>
+        /// The cpu
+        /// </summary>
+        CPU = 4,
+
+        /// <summary>
+        /// The memory
+        /// </summary>
+        Memory = 5
     }
 }
