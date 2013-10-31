@@ -12,7 +12,6 @@
     /// </summary>
     public class Store
     {
-
         /// <summary>
         /// returns the path.
         /// </summary>
